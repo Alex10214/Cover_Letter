@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Profession</th>
+            <th>Name</th>
+            <th>About</th>
+            <th>Draft</th>
+            <th>Edit Letter</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let oneLetter of arrDataLetter">
+            <td #inputId>{{oneLetter.id}}</td>
+            <td>{{oneLetter.profession}}</td>
+            <td>{{oneLetter.name}}</td>
+            <td>{{oneLetter.about}}</td>
+            <td>{{oneLetter.draft}}</td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="edit(oneLetter)">Edit letter</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-4">
+      <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+        <h2>Form</h2>
+        <div class="form-group">
+          <label for="id">Enter Id</label>
+          <input id="id" class="form-control" type="number" formControlName="id">
+          <div
+            *ngIf="form.get('id').invalid && form.get('id').touched"
+            class="validation"
+          >
+            <small *ngIf="form.get('id').errors.required">Required field</small>
+            <small *ngIf="form.get('id').errors.max">There should be maximum 10 numbers</small>
+            <small *ngIf="form.get('id').errors.min">There should be must be a positive number</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="profession">Enter Profession</label>
+          <input id="profession" class="form-control" type="text" formControlName="profession">
+          <div
+            *ngIf="form.get('profession').invalid && form.get('profession').touched"
+            class="validation"
+          >
+            <small *ngIf="form.get('profession').errors.required">Required field</small>
+            <small *ngIf="form.get('profession').errors.minlength">There should be minimum 5 letters</small>
+            <small *ngIf="form.get('profession').errors.maxlength">There should be maximum 20 letters</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Enter Name</label>
+          <input id="name" class="form-control" type="text" formControlName="name">
+          <div
+            *ngIf="form.get('name').invalid && form.get('name').touched"
+            class="validation"
+          >
+            <small *ngIf="form.get('name').errors.required">Required field</small>
+            <small *ngIf="form.get('name').errors.minlength">There should be minimum 3 letters</small>
+            <small *ngIf="form.get('name').errors.maxlength">There should be maximum 15 letters</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="about">Enter About</label>
+          <textarea id="about" class="form-control" formControlName="about"></textarea>
+          <div
+            *ngIf="form.get('about').invalid && form.get('about').touched"
+            class="validation"
+          >
+            <small *ngIf="form.get('about').errors.required">Required field</small>
+            <small *ngIf="form.get('about').errors.minlength">There should be minimum 10 letters</small>
+            <small *ngIf="form.get('about').errors.maxlength">There should be maximum 100 letters</small>
+          </div>
+        </div>
+
+        <div class="form-group custom-for-group">
+          <label>Enter Draft</label>
+          <input class="draft" type="checkbox" formControlName="draft" [(ngModel)]="isActive">
+        </div>
+
+        <div class="row container-btn buttons-full-width">
+          <div class="col-10">
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid && isActive">Create cover letter</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

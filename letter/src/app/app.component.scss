@@ -1,0 +1,51 @@
+.container {
+  margin-top: 10px;
+
+  .card {
+    padding: 20px;
+  }
+
+  .container-btn {
+    display: flex;
+    justify-content: center;
+  }
+
+  .buttons-full-width .btn{
+    width: 100%;
+  }
+
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+
+  input, textarea {
+    &.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
+
+    &.ng-valid {
+      border: 1px solid dodgerblue;
+    }
+  }
+
+  small {
+    color: red;
+  }
+
+  .custom-for-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    label {
+      width: 50%;
+      margin: 0;
+    }
+
+    input {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
