@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
   dataLetter: any;
   isActive = true;
   isEditMode = false;
+  isRegisteredId = false;
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit{
     });
   }
   submit(): void {
-    if (this.isEditMode) {
+    if (this.isEditMode) { // <---- доделать галочку
       if (this.arrDataLetter.length > 0) {
         this.dataLetter = {...this.form.value};
         const obj = this.arrDataLetter.find(n => n.id === this.dataLetter.id);
@@ -53,9 +54,21 @@ export class AppComponent implements OnInit{
           this.arrDataLetter.push(this.dataLetter);
         }
       }
+      this.form.reset();
     } else {
       if (this.form.valid && this.isActive === true && this.isEditMode === false) {
         const formData = {...this.form.value};
+        console.log(this.arrDataLetter);
+        if (this.arrDataLetter.length > 0) {
+          for (const el of this.arrDataLetter) {
+            if (formData.id !== el.id) {
+              this.arrDataLetter.push(formData);
+            } else {
+              this.isRegisteredId = true;
+              return;
+            }
+          }
+        }
         this.arrDataLetter.push(formData);
         localStorage.setItem('formData', JSON.stringify(this.arrDataLetter));
         this.form.reset();
@@ -63,6 +76,7 @@ export class AppComponent implements OnInit{
       }
     }
     this.isEditMode = false;
+    this.inputId.nativeElement.removeAttribute('disabled', 'disabled');
   }
 
   edit(ob: Letter): void {
@@ -73,5 +87,7 @@ export class AppComponent implements OnInit{
       }
     }
     this.ngOnInit();
+    this.inputId.nativeElement.setAttribute('disabled', 'disabled');
   }
 }
+
