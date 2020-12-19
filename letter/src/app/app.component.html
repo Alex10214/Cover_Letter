@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-8">
+    <div class="col-8" >
       <div class="table-responsive">
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered" *ngIf="arrDataLetter.length; else loading">
           <thead>
           <tr>
             <th>ID</th>
@@ -33,7 +33,7 @@
         <h2>Form</h2>
         <div class="form-group">
           <label for="id">Enter Id</label>
-          <input #inputId id="id" class="form-control" type="number" formControlName="id">
+          <input id="id" class="form-control" type="number" formControlName="id">
           <div
             *ngIf="form.get('id').invalid && form.get('id').touched"
             class="validation"
@@ -41,7 +41,6 @@
             <small *ngIf="form.get('id').errors.required">Required field</small>
             <small *ngIf="form.get('id').errors.max">There should be maximum 10 numbers</small>
             <small *ngIf="form.get('id').errors.min">There should be must be a positive number</small>
-            <small [(ngModel)]="isRegisteredId">Id already registered</small>
           </div>
         </div>
 
@@ -85,13 +84,13 @@
         </div>
 
         <div class="form-group custom-for-group">
-          <label>Enter Draft</label>
-          <input class="draft" type="checkbox" formControlName="draft" [(ngModel)]="isActive">
+          <label>Draft</label>
+          <input #checkbox class="draft" type="checkbox" formControlName="draft" [(ngModel)]="isActive">
         </div>
 
         <div class="row container-btn buttons-full-width">
           <div class="col-10">
-            <button type="submit" class="btn btn-primary" [disabled]="form.invalid && isActive">Create cover letter</button>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Create cover letter</button>
           </div>
         </div>
 
@@ -99,3 +98,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <p class="text-center">No letters</p>
+</ng-template>

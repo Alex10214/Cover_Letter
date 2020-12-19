@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 import {Letter} from './interface';
 
 @Component({
@@ -9,10 +10,10 @@ import {Letter} from './interface';
 })
 export class AppComponent implements OnInit{
 
-  @ViewChild('inputId', {static: false}) inputId: ElementRef;
+  @ViewChild('checkbox', {static: false}) checkbox: ElementRef;
 
   form: FormGroup;
-  arrDataLetter = [];
+  arrDataLetter: Array<Letter> = [];
   dataLetter: any;
   isActive = true;
   isEditMode = false;
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit{
         Validators.min(1),
         Validators.max(1000000000)
       ]),
-      profession: new FormControl(this.dataLetter?.profession, [
+      profession: new FormControl( this.dataLetter?.profession, [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(20)
@@ -44,7 +45,8 @@ export class AppComponent implements OnInit{
     });
   }
   submit(): void {
-    if (this.isEditMode) { // <---- доделать галочку
+
+    if (this.form.valid && this.isActive === false && this.isEditMode) {
       if (this.arrDataLetter.length > 0) {
         this.dataLetter = {...this.form.value};
         const obj = this.arrDataLetter.find(n => n.id === this.dataLetter.id);
@@ -57,12 +59,13 @@ export class AppComponent implements OnInit{
       this.form.reset();
     } else {
       if (this.form.valid && this.isActive === true && this.isEditMode === false) {
-        const formData = {...this.form.value};
-        console.log(this.arrDataLetter);
+        this.isActive = false;
+        const formData: Letter = {...this.form.value};
         if (this.arrDataLetter.length > 0) {
           for (const el of this.arrDataLetter) {
             if (formData.id !== el.id) {
               this.arrDataLetter.push(formData);
+              this.form.reset();
             } else {
               this.isRegisteredId = true;
               return;
@@ -70,16 +73,17 @@ export class AppComponent implements OnInit{
           }
         }
         this.arrDataLetter.push(formData);
-        localStorage.setItem('formData', JSON.stringify(this.arrDataLetter));
         this.form.reset();
         this.isActive = false;
+        localStorage.setItem('formData', JSON.stringify(this.arrDataLetter));
       }
     }
     this.isEditMode = false;
-    this.inputId.nativeElement.removeAttribute('disabled', 'disabled');
+    this.checkbox.nativeElement.removeAttribute('disabled', 'disabled');
   }
 
   edit(ob: Letter): void {
+    this.isActive = false;
     this.isEditMode = true;
     for (const i of this.arrDataLetter) {
       if (i.id === ob.id) {
@@ -87,7 +91,7 @@ export class AppComponent implements OnInit{
       }
     }
     this.ngOnInit();
-    this.inputId.nativeElement.setAttribute('disabled', 'disabled');
+    this.checkbox.nativeElement.setAttribute('disabled', 'disabled');
   }
 }
 

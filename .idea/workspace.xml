@@ -13,6 +13,7 @@
     <list default="true" id="5ee123a0-6caf-4a84-b2ad-8378834f3923" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/letter/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/letter/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/letter/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/letter/src/app/app.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/letter/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/letter/src/app/app.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CoverLetter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Blog" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
@@ -53,7 +54,13 @@
       <workItem from="1608321349273" duration="1774000" />
       <workItem from="1608323155875" duration="1793000" />
       <workItem from="1608324962999" duration="1795000" />
-      <workItem from="1608326783508" duration="1482000" />
+      <workItem from="1608326783508" duration="1753000" />
+      <workItem from="1608328591479" duration="1796000" />
+      <workItem from="1608330398999" duration="1802000" />
+      <workItem from="1608332214088" duration="1115000" />
+      <workItem from="1608363040680" duration="1783000" />
+      <workItem from="1608364843033" duration="1792000" />
+      <workItem from="1608366649251" duration="641000" />
     </task>
     <servers />
   </component>
@@ -73,10 +80,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1608322757219">
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1608366693337">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1608322757219" />
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1608366693337" />
     <state x="277" y="62" key="SettingsEditor" timestamp="1608323663644">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
