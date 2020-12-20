@@ -11,87 +11,91 @@ import {Letter} from './interface';
 export class AppComponent implements OnInit{
 
   @ViewChild('checkbox', {static: false}) checkbox: ElementRef;
+  @ViewChild('inputId', {static: false}) inputId: ElementRef;
 
   form: FormGroup;
   arrDataLetter: Array<Letter> = [];
-  dataLetter: any;
-  isActive = true;
+  dataLetterOneLetter: any;
+  isActiveCheck = true;
   isEditMode = false;
-  isRegisteredId = false;
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      id: new FormControl(this.dataLetter?.id, [
+      id: new FormControl(this.dataLetterOneLetter?.id, [
         Validators.required,
         Validators.min(1),
         Validators.max(1000000000)
       ]),
-      profession: new FormControl( this.dataLetter?.profession, [
+      profession: new FormControl( this.dataLetterOneLetter?.profession, [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(20)
       ]),
-      name: new FormControl(this.dataLetter?.name, [
+      name: new FormControl(this.dataLetterOneLetter?.name, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(15)
       ]),
-      about: new FormControl(this.dataLetter?.about, [
+      about: new FormControl(this.dataLetterOneLetter?.about, [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(100)
       ]),
-      draft: new FormControl(this.isActive, [Validators.required])
+      draft: new FormControl(this.isActiveCheck, [Validators.required])
     });
   }
-  submit(): void {
 
-    if (this.form.valid && this.isActive === false && this.isEditMode) {
-      if (this.arrDataLetter.length > 0) {
-        this.dataLetter = {...this.form.value};
-        const obj = this.arrDataLetter.find(n => n.id === this.dataLetter.id);
-        if (obj) {
-          Object.assign(obj, this.dataLetter);
-        } else {
-          this.arrDataLetter.push(this.dataLetter);
+
+
+  submit(): void {
+    if (this.form.valid && this.isEditMode === false) {
+      this.isActiveCheck = true;
+
+      const formDataValue = {... this.form.value};
+
+      if (this.arrDataLetter.length >= 0) {
+        this.arrDataLetter.push(formDataValue);
+      } else {
+        for (const el of this.arrDataLetter) {
+          if (el.id !== formDataValue.id) {
+            this.arrDataLetter.push(formDataValue);
+          } else {
+            return;
+          }
         }
       }
       this.form.reset();
-    } else {
-      if (this.form.valid && this.isActive === true && this.isEditMode === false) {
-        this.isActive = false;
-        const formData: Letter = {...this.form.value};
-        if (this.arrDataLetter.length > 0) {
-          for (const el of this.arrDataLetter) {
-            if (formData.id !== el.id) {
-              this.arrDataLetter.push(formData);
-              this.form.reset();
-            } else {
-              this.isRegisteredId = true;
-              return;
-            }
-          }
-        }
-        this.arrDataLetter.push(formData);
-        this.form.reset();
-        this.isActive = false;
-        localStorage.setItem('formData', JSON.stringify(this.arrDataLetter));
+    } else if (this.form.valid && this.isEditMode === true ) {
+
+      const newFormDataValue = {... this.form.value};
+
+      const obj = this.arrDataLetter.find(n => n.id === newFormDataValue.id);
+
+      if (obj) {
+        Object.assign(obj, newFormDataValue);
+      } else {
+        this.arrDataLetter.push(newFormDataValue);
       }
+      this.checkbox.nativeElement.removeAttribute('disabled', 'disabled');
+      this.inputId.nativeElement.removeAttribute('disabled', 'disabled');
+      this.form.reset();
     }
-    this.isEditMode = false;
-    this.checkbox.nativeElement.removeAttribute('disabled', 'disabled');
   }
 
   edit(ob: Letter): void {
-    this.isActive = false;
     this.isEditMode = true;
-    for (const i of this.arrDataLetter) {
-      if (i.id === ob.id) {
-        this.dataLetter = i;
+    this.isActiveCheck = false;
+    for (const el of this.arrDataLetter) {
+      if (el.id === ob.id) {
+        this.dataLetterOneLetter = ob;
       }
     }
     this.ngOnInit();
     this.checkbox.nativeElement.setAttribute('disabled', 'disabled');
+    this.inputId.nativeElement.setAttribute('disabled', 'disabled');
   }
 }
+
+
+
 

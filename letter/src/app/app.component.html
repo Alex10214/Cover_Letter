@@ -33,7 +33,7 @@
         <h2>Form</h2>
         <div class="form-group">
           <label for="id">Enter Id</label>
-          <input id="id" class="form-control" type="number" formControlName="id">
+          <input #inputId id="id" class="form-control" type="number" formControlName="id">
           <div
             *ngIf="form.get('id').invalid && form.get('id').touched"
             class="validation"
@@ -85,7 +85,7 @@
 
         <div class="form-group custom-for-group">
           <label>Draft</label>
-          <input #checkbox class="draft" type="checkbox" formControlName="draft" [(ngModel)]="isActive">
+          <input #checkbox class="draft" type="checkbox" formControlName="draft" [(ngModel)]="isActiveCheck">
         </div>
 
         <div class="row container-btn buttons-full-width">
